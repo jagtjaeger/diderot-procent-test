@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Diderot – Procent</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f7f3ee; --card: #fffcf8; --text: #3d3833; --muted: #7a736b; --border: #e8dfd4;
+      --accent: #e8a87c; --accent-hover: #d99568; --accent-soft: #fdf0e6;
+      --green-text: #2f7a5c; --green-soft: #e8f6f0; --coral-text: #a34d4d; --coral-soft: #faf0f0;
+      --shadow: 0 6px 24px rgba(120, 100, 80, 0.08);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Nunito, system-ui, sans-serif;
+      background: radial-gradient(ellipse at 20% 0%, #f5ebe0 0%, transparent 50%), radial-gradient(ellipse at 90% 20%, #f0e8f2 0%, transparent 45%), var(--bg);
+      color: var(--text); min-height: 100vh;
+    }
+    .wrap { max-width: 420px; margin: 0 auto; padding: 1.75rem 1.15rem 3rem; }
+    .badge { display: inline-flex; font-size: 0.75rem; font-weight: 700; color: #9a6b45; background: var(--accent-soft); border: 1.5px solid #f0dcc8; padding: 0.35rem 0.75rem; border-radius: 999px; margin-bottom: 1rem; }
+    h1 { font-size: 1.85rem; font-weight: 800; margin-bottom: 0.35rem; }
+    h1 span { color: #c4845a; }
+    .sub { color: var(--muted); font-size: 0.95rem; font-weight: 600; margin-bottom: 1.5rem; }
+    .card { background: var(--card); border: 1.5px solid var(--border); border-radius: 20px; padding: 1.35rem; box-shadow: var(--shadow); }
+    .meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.15rem; }
+    .pill { font-size: 0.8rem; font-weight: 800; color: #7a4e32; background: var(--accent-soft); border: 1.5px solid #f0dcc8; padding: 0.35rem 0.8rem; border-radius: 999px; }
+    .level-label { font-size: 0.75rem; color: var(--muted); font-weight: 700; margin-bottom: 0.3rem; text-align: right; }
+    .level-bar { display: flex; gap: 4px; justify-content: flex-end; }
+    .level-dot { width: 18px; height: 8px; border-radius: 99px; background: #ebe3da; }
+    .level-dot.on { background: var(--accent); }
+    .q { font-size: 1.12rem; font-weight: 700; line-height: 1.4; margin-bottom: 1.2rem; }
+    .row { display: flex; gap: 0.55rem; margin-bottom: 0.85rem; }
+    input[type=text] { flex: 1; background: #faf7f3; border: 1.5px solid var(--border); border-radius: 14px; padding: 0.8rem 0.95rem; color: var(--text); font-size: 1rem; font-family: inherit; font-weight: 600; }
+    input[type=text]:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(232,168,124,0.2); }
+    button { font-family: inherit; cursor: pointer; border: none; border-radius: 14px; font-size: 0.95rem; font-weight: 800; }
+    .btn-main { background: var(--accent); color: #fff; padding: 0.8rem 1.15rem; white-space: nowrap; }
+    .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.65rem; }
+    .btn-interest { background: #faf7f3; color: var(--text); border: 1.5px solid var(--border); padding: 1rem 0.7rem; font-weight: 700; }
+    .btn-interest:hover { border-color: var(--accent); background: var(--accent-soft); color: #9a6b45; }
+    .label { margin-bottom: 0.9rem; color: var(--muted); font-size: 0.95rem; font-weight: 700; }
+    .ok { color: var(--green-text); background: var(--green-soft); font-size: 0.9rem; font-weight: 800; margin-bottom: 0.75rem; padding: 0.65rem 0.85rem; border-radius: 12px; }
+    .bad { color: var(--coral-text); background: var(--coral-soft); font-size: 0.9rem; font-weight: 800; margin-bottom: 0.75rem; padding: 0.65rem 0.85rem; border-radius: 12px; }
+    .box { margin-top: 0.85rem; border: 1.5px solid var(--border); border-radius: 16px; padding: 1rem; background: #faf7f3; font-size: 0.9rem; line-height: 1.55; color: var(--muted); font-weight: 600; }
+    .box p { margin-bottom: 0.9rem; } .box p:last-child { margin-bottom: 0; }
+    .tag { display: block; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; margin-bottom: 0.2rem; }
+    .g { color: var(--green-text); } .b { color: #3d7a8c; } .p { color: #6b4f82; } .y { color: #9a6b45; }
+    .box strong { color: var(--text); font-weight: 800; }
+    .link { display: inline-block; margin-top: 1.1rem; background: none; color: #c4845a; font-weight: 800; font-size: 0.95rem; padding: 0; }
+    .foot { margin-top: 1.5rem; }
+    .foot h2 { font-size: 0.8rem; font-weight: 800; text-transform: uppercase; color: var(--muted); margin-bottom: 0.65rem; }
+    textarea { width: 100%; background: var(--card); border: 1.5px solid var(--border); border-radius: 16px; padding: 0.9rem; color: var(--text); font-size: 0.9rem; font-family: inherit; font-weight: 600; resize: vertical; min-height: 7.5rem; }
+    .btn-sec { margin-top: 0.7rem; width: 100%; background: var(--accent); color: #fff; padding: 0.85rem 1rem; font-weight: 800; }
+    .center { text-align: center; padding: 2.5rem 0.5rem; }
+    .muted { color: var(--muted); font-size: 0.95rem; font-weight: 600; }
+    pre { text-align: left; background: var(--card); border: 1.5px solid var(--border); padding: 1.15rem; border-radius: 18px; font-size: 0.9rem; white-space: pre-wrap; margin-top: 1.25rem; font-family: Nunito,sans-serif; color: var(--muted); font-weight: 600; }
+    @media (max-width: 420px) { h1 { font-size: 1.6rem; } .btn-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="wrap" id="app"></div>
+  <script>
+    const PROBLEMS = [
+      { id: 1, interest: 'fotboll', question: 'Ett lag sköt 40 skott. 15 gick i mål. Hur många procent gick i mål?', part: 15, whole: 40, answer: 37.5 },
+      { id: 2, interest: 'fotboll', question: 'Ett lag sköt 50 skott. 20 gick i mål. Hur många procent gick i mål?', part: 20, whole: 50, answer: 40 },
+      { id: 3, interest: 'fotboll', question: 'Av 80 i publiken var 32 under 18 år. Hur många procent var under 18?', part: 32, whole: 80, answer: 40 },
+      { id: 4, interest: 'musik', question: 'En spellista har 50 låtar. 12 är favoriter. Hur många procent är favoriter?', part: 12, whole: 50, answer: 24 },
+      { id: 5, interest: 'spel', question: 'Du har 80 poäng av 100 som behövs till nästa nivå. Hur många procent har du?', part: 80, whole: 100, answer: 80 },
+      { id: 6, interest: 'pengar', question: 'Du sparar 150 kr av 500 kr i månaden. Hur många procent sparar du?', part: 150, whole: 500, answer: 30 },
+      { id: 7, interest: 'pengar', question: 'En jacka kostar 800 kr. Den är nedsatt med 25 %. Hur mycket är rabatten i kronor?', part: 25, whole: 100, answer: 200 },
+      { id: 8, interest: 'idrott', question: 'Du har sprungit 3 km av totalt 12 km. Hur många procent har du klarat?', part: 3, whole: 12, answer: 25 }
+    ];
+    const LABELS = { fotboll: '⚽ Fotboll', musik: '🎵 Musik', spel: '🎮 Spel', pengar: '💰 Pengar', idrott: '🏃 Idrott' };
+    const state = { interest: null, level: 1, index: 0, answer: '', feedback: null, showSolution: false, streak: 0, comments: '', done: false };
+    function filtered() { return PROBLEMS.filter(function(p) { return p.interest === state.interest; }); }
+    function problem() { var list = filtered(); return list[state.index] || null; }
+    function check() {
+      var p = problem(); if (!p) return;
+      var num = parseFloat(String(state.answer).replace(',', '.'));
+      var correct = Math.abs(num - p.answer) < 0.2;
+      if (correct) { state.streak += 1; state.feedback = 'ok'; if (state.streak >= 2 && state.level < 4) { state.level += 1; state.streak = 0; } }
+      else { state.streak = 0; state.feedback = 'bad'; if (state.level > 1) state.level -= 1; state.showSolution = true; }
+      render();
+    }
+    function next() {
+      var list = filtered();
+      state.answer = ''; state.feedback = null; state.showSolution = false;
+      state.index = state.index + 1 < list.length ? state.index + 1 : 0;
+      render();
+    }
+    function levelDots() {
+      return [1,2,3,4].map(function(n) { return '<span class="level-dot' + (n <= state.level ? ' on' : '') + '"></span>'; }).join('');
+    }
+    function solutionHTML(p) {
+      if (state.level === 1 || state.showSolution) {
+        var ratio = (p.part / p.whole).toFixed(3);
+        var unit = p.id === 7 ? ' kr' : ' %';
+        return '<div class="box"><p><span class="tag g">Konkret</span>' + p.question + '</p><p><span class="tag b">Representationell</span>Tänk att ' + p.whole + ' är hela mängden (100 %).</p><p><span class="tag p">Abstrakt</span>Steg 1: ' + p.part + ' ÷ ' + p.whole + ' = ' + ratio + '<br/>Steg 2: ' + ratio + ' × 100 = <strong>' + p.answer + unit + '</strong></p><p><span class="tag y">Reflektion</span>Hur skulle du räkna ut detta ungefär i huvudet?</p></div>';
+      }
+      if (state.level === 2) return '<div class="box"><p>Steg 1: ' + p.part + ' ÷ ' + p.whole + ' = ______</p><p>Steg 2: ______ × 100 = ______</p></div>';
+      if (state.level === 3) return '<div class="box"><p>Ledtråd: Vad är delen? Vad är det hela? Vilken uträkning gör du först?</p></div>';
+      return '';
+    }
+    function escapeHtml(s) { return String(s).replace(/&/g,'&').replace(/</g,'<').replace(/>/g,'>'); }
+    function escapeAttr(s) { return escapeHtml(s).replace(/"/g,'"'); }
+    function render() {
+      var root = document.getElementById('app');
+      if (state.done) {
+        root.innerHTML = '<div class="center"><span class="badge">Tack för testet</span><h1>Snyggt jobbat</h1><p class="muted">Kopiera texten nedan och skicka tillbaka i mailet.</p><pre>' + (state.comments ? escapeHtml(state.comments) : '(ingen text)') + '</pre></div>';
+        return;
+      }
+      if (!state.interest) {
+        root.innerHTML = '<span class="badge">Testversion · gratis</span><h1>Diderot – <span>Procent</span></h1><p class="sub">Träna procent utifrån det du gillar</p><div class="card"><p class="label">Vad är du intresserad av?</p><div class="btn-grid">' + Object.keys(LABELS).map(function(k) { return '<button class="btn-interest" data-interest="' + k + '">' + LABELS[k] + '</button>'; }).join('') + '</div></div>';
+        root.querySelectorAll('[data-interest]').forEach(function(btn) {
+          btn.onclick = function() { state.interest = btn.getAttribute('data-interest'); state.index = 0; render(); };
+        });
+        return;
+      }
+      var p = problem();
+      root.innerHTML = '<span class="badge">Testversion · gratis</span><h1>Diderot – <span>Procent</span></h1><p class="sub">Träna procent utifrån det du gillar</p><div class="card"><div class="meta"><span class="pill">' + LABELS[state.interest] + '</span><div><div class="level-label">Stödnivå ' + state.level + '/4</div><div class="level-bar">' + levelDots() + '</div></div></div>' + (p ? '<p class="q">' + p.question + '</p><div class="row"><input id="ans" type="text" inputmode="decimal" placeholder="Ditt svar (t.ex. 37,5)" value="' + escapeAttr(state.answer) + '" /><button class="btn-main" id="check">Kolla</button></div>' + (state.feedback === 'ok' ? '<p class="ok">Rätt – bra jobbat</p>' : '') + (state.feedback === 'bad' ? '<p class="bad">Titta på förklaringen nedan</p>' : '') + solutionHTML(p) + '<button class="link" id="next">Nästa uppgift →</button>' : '<p class="muted">Inga uppgifter.</p>') + '</div><div class="foot"><h2>Din feedback</h2><textarea id="comments" placeholder="1. Var förklaringen tydlig?&#10;2. Vad var bra?&#10;3. Vad var otydligt?&#10;4. Förslag">' + escapeHtml(state.comments) + '</textarea><button class="btn-sec" id="submit">Klar – visa min feedback</button></div>';
+      var input = document.getElementById('ans');
+      if (input) {
+        input.oninput = function(e) { state.answer = e.target.value; };
+        input.onkeydown = function(e) { if (e.key === 'Enter') check(); };
+        setTimeout(function() { input.focus(); }, 50);
+      }
+      var checkBtn = document.getElementById('check'); if (checkBtn) checkBtn.onclick = check;
+      var nextBtn = document.getElementById('next'); if (nextBtn) nextBtn.onclick = next;
+      var ta = document.getElementById('comments'); if (ta) ta.oninput = function(e) { state.comments = e.target.value; };
+      var sub = document.getElementById('submit'); if (sub) sub.onclick = function() { state.done = true; render(); };
+    }
+    render();
+  </script>
+</body>
+</html>
